@@ -16,7 +16,7 @@ let appData = {
     timeData: time,
     expenses: {},
     optionalExpenses: {},
-    incom: [],
+    income: [],
     savings: true,
     chooseExpenses: function() {
         for (let i=0; i<2; i++) {
@@ -48,31 +48,46 @@ let appData = {
         }   else {
                 alert("Что-то пошло не так");
         }
+    },
+    checkSavings: function() {
+        if (appData.savings == true ) {
+            let save = +prompt("Какова сумма накоплений ?", ""),
+                percent = +prompt("Под какой процент?", "");
+
+            appData.mounthIncome = save/100/12*percent;
+            alert("Доход в месяц от депозита: " + appData.mounthIncome);
+        }
+    },
+    chooseOptExpenses: function() {
+        for(let i = 1; i < 4; i++){
+            let a = +prompt("Статья необязательных расходов?", "");
+         if( a != null && a != "" && isNaN(a) == false ){
+            console.log("chooseOpt done!");
+            appData.optionalExpenses[i] = a;
+        } else {
+            alert("Введите корректные данные!!!");
+            i--;
+            }
+        }
+    },
+    chooseInCome: function() {
+        for (let i=0; i<1; i++) {
+            let items = prompt('Что принесет дополнительный доход? (Перечислить через запятую)', '');
+            if( (typeof(items)) === 'string' && items != "" && items != null){
+                appData.income = items.split(', ');
+                appData.income.push(prompt("Может еще что-нибудь?", ""));
+                appData.income.sort();
+            } else{
+                alert("Введите корректные данные!!!");
+                i--;
+            }
+        }
+        this.income.forEach(function(item, i){
+            console.log('Способы доп. заработка: ' + i + ' ' + item);
+        });  
     }
 };
 
-function cooseOptExpenses() {
-    for(let i = 1; i < 4; i++){
-        let a = +prompt("Статья необязательных расходов?", "");
-     if( a != null && a != "" && isNaN(a) == false ){
-        console.log("chooseOpt done!");
-        appData.optionalExpenses[i] = a;
-    } else {
-        alert("Введите корректные данные!!!");
-        i--;
-        }
-    }
-}
-
-cooseOptExpenses();
-
-function checkSavings() {
-    if (appData.savings == true ) {
-        let save = +prompt("Какова сумма накоплений ?", ""),
-            percent = +prompt("Под какой процент?", "");
-            appData.mounthIncome = save/100/12*percent;
-            alert("Доход в месяц от депозита: " + appData.mounthIncome);
-    }
-}
-
-checkSavings();
+for (let key in appData){
+    console.log("Наша программа включает в себя данные: " + key);
+};
