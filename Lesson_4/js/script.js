@@ -60,8 +60,8 @@ let appData = {
     },
     chooseOptExpenses: function() {
         for(let i = 1; i < 4; i++){
-            let a = +prompt("Статья необязательных расходов?", "");
-         if( a != null && a != "" && isNaN(a) == false ){
+            let a = prompt("Статья необязательных расходов?", "");
+         if( (typeof(a))=== 'string' && a != null && a != " " ){
             console.log("chooseOpt done!");
             appData.optionalExpenses[i] = a;
         } else {
@@ -83,7 +83,7 @@ let appData = {
             }
         }
         this.income.forEach(function(item, i){
-            console.log('Способы доп. заработка: ' + i + ' ' + item);
+            console.log('Способы доп. заработка: ' + (i+1) + ' ' + item);
         });  
     }
 };

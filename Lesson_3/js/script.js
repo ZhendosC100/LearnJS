@@ -61,10 +61,10 @@ function detectLevel() {
 
 detectLevel();
 
-function cooseOptExpenses() {
+function chooseOptExpenses() {
     for(let i = 1; i < 4; i++){
-        let a = +prompt("Статья необязательных расходов?", "");
-     if( a != null && a != "" && isNaN(a) == false ){
+        let a = prompt("Статья необязательных расходов?", "");
+     if( (typeof(a))=== 'string' && a != null && a != " " ){
         console.log("chooseOpt done!");
         appData.optionalExpenses[i] = a;
     } else {
@@ -74,7 +74,7 @@ function cooseOptExpenses() {
     }
 }
 
-cooseOptExpenses();
+chooseOptExpenses();
 
 function checkSavings() {
     if (appData.savings == true ) {
