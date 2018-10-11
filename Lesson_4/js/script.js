@@ -35,7 +35,7 @@ let appData = {
         }
     },
     detectDayBudget: function(){
-        appData.moneyPerDay = (appData.budget/30).toFixed(4);
+        appData.moneyPerDay = (appData.budget/30).toFixed(2);
         alert("Ежедневный бюджет : " + appData.moneyPerDay);
     },
     detectLevel: function() {
@@ -61,7 +61,7 @@ let appData = {
     chooseOptExpenses: function() {
         for(let i = 1; i < 4; i++){
             let a = prompt("Статья необязательных расходов?", "");
-         if( (typeof(a))=== 'string' && a != null && a != " " ){
+         if( (typeof(a))=== 'string' && a != null && a != '' ){
             console.log("chooseOpt done!");
             appData.optionalExpenses[i] = a;
         } else {
@@ -85,9 +85,10 @@ let appData = {
         this.income.forEach(function(item, i){
             console.log('Способы доп. заработка: ' + (i+1) + ' ' + item);
         });  
+    },
+    outputOfObject: function() {
+        for (let key in appData){
+            console.log("Наша программа включает в себя данные: " + key);
+        }
     }
-};
-
-for (let key in appData){
-    console.log("Наша программа включает в себя данные: " + key);
 };
