@@ -85,10 +85,11 @@ let appData = {
         this.income.forEach(function(item, i){
             console.log('Способы доп. заработка: ' + (i+1) + ' ' + item);
         });  
-    },
-    outputOfObject: function() {
-        for (let key in appData){
-            console.log("Наша программа включает в себя данные: " + key);
-        }
     }
 };
+
+function outputOfObject () {
+    for (let key in appData){
+        console.log("Наша программа включает в себя данные: " + key);
+    }
+}
