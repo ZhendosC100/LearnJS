@@ -6,7 +6,7 @@ let menu = document.querySelector('.menu'),
     third = m_item[1];
 
 menu.insertBefore(second, third);
-
+            //Первый способ
 let body = document.getElementsByTagName('body');
 //console.log(body);
 body[0].style.background = 'url(../img/apple_true.jpg) center no-repeat';
