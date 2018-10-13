@@ -1,22 +1,21 @@
-let   budgetValue = document.querySelector('.budget-value'),
-      daybudgetValue = document.querySelector('.daybudget-value'),
-      levelValue = document.querySelector('.level-value'),
-      expensesValue = document.querySelector('.expenses-value'),
-      optiexpensesValue = document.querySelector('.optionalexpenses-value'),
-      incomeValue = document.querySelector('.income-value'),
-      monthsavingsValue = document.querySelector('.monthsavings-value'),
-      yearsavingsValue = document.querySelector('.yearsavings-value'),
+let   budgetValue = document.querySelector('.budget-value')[0],
+      daybudgetValue = document.querySelector('.daybudget-value')[0],
+      levelValue = document.querySelector('.level-value')[0],
+      expensesValue = document.querySelector('.expenses-value')[0],
+      optionalexpensesValue = document.querySelector('.optionalexpenses-value')[0],
+      incomeValue = document.querySelector('.income-value')[0],
+      monthsavingsValue = document.querySelector('.monthsavings-value')[0],
+      yearsavingsValue = document.querySelector('.yearsavings-value')[0],
 
-      expensesItem = document.getElementsByClassName('expenses-item'),
-      btn = document.getElementsByTagName('button');
+      expensesItem = document.getElementsByClassName('expenses-item'),   
 
     //buttons:
-let   btn_start = document.getElementById('start'), //Начать расчет  
-      select = btn[0], //Утвердить обязательные расходы
-      select_opt = btn[1], //Утвердить необязательные расходы
-      square = btn[2]; //Рассчитать дневной бюджет
+      btn_start = document.getElementById('start'), //Начать расчет
+      expensesBtn = document.getElementsByTagName('button')[0], //Утвердить обязательные расходы
+      optionalExpensesBtn = document.getElementsByTagName('button')[1], //Утвердить необязательные расходы
+      countBtn = document.getElementsByTagName('button')[2], //Рассчитать дневной бюджет
     
-let   optionalExpensesItem = document.querySelectorAll('.optionalexpenses-item'), 
+      optionalExpensesItem = document.querySelectorAll('.optionalexpenses-item'), 
       chooseIncome = document.querySelector('.choose-income'),  
       checkSavings = document.querySelector('#savings'),   
       sumValue = document.querySelector('.choose-sum'),  
