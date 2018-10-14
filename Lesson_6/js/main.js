@@ -7,8 +7,8 @@ let   budgetValue = document.querySelector('.budget-value'),
       monthsavingsValue = document.querySelector('.monthsavings-value'),
       yearsavingsValue = document.querySelector('.yearsavings-value'),
 
-      expensesItem = document.getElementsByClassName('expenses-item'),   
-
+      expensesItem = document.getElementsByClassName('expenses-item'),//.querySelectorAll('.expenses-item'),   .getElementsByClassName('expenses-item'),
+      //expensesItemClass = document.getElementsByClassName('expenses-item'),
     //buttons:
       startBtn = document.getElementById('start'), //Начать расчет
       expensesBtn = document.getElementsByTagName('button')[0], //Утвердить обязательные расходы
@@ -53,10 +53,8 @@ expensesBtn.addEventListener('click', function() {
                 console.log("done");
                 appData.expenses[a] = b;
                 sum += +b;
-                expensesBtn.disabled = false;
         }   else {
                 alert("Введите все данные!");
-                expensesBtn.disabled = true;
                 i = i - 1;
         }
         expensesValue.textContent = sum;
@@ -161,6 +159,53 @@ let appData = {
     income: [],
     savings: false
 };
+
+expensesBtn.disabled = true;          //Przycisk "Утвердить обязательные расходы" : robimy właściwość "disabled"
+optionalExpensesBtn.disabled = true;  //Przycisk "Утвердить необязательные расходы" : robimy właściwość "disabled"
+countBtn.disabled = true;             //Przycisk "Рассчитать дневной бюджет" : robimy właściwość "disabled"
+
+//Włączamy przyciski, w razie spełnionych warunków uzupełnioności input
+
+/*
+    for(let i = 0; i < expensesItem.length; i++) {
+
+    expensesItem[i].addEventListener('input', function(){
+        if( expensesItem[i].value.trim() != '' || !!appData.budget ){
+
+            expensesBtn.removeAttribute('disabled');
+            countBtn.removeAttribute('disabled');
+        }
+
+    });
+}
+ */
+
+ //Teraz trochę zmodyfikowany niż mieliśmy powyżej)) : 
+for(let i = 0; i < expensesItem.length; i++) {
+
+    expensesItem[i].addEventListener('input', function(){
+        if( expensesItem[i].value.trim() != '' ){
+
+            expensesBtn.removeAttribute('disabled');
+        }
+
+        if( appData.budget != '' ){
+
+        countBtn.removeAttribute('disabled');
+        }
+
+    });
+}
+
+for(let i = 0; i < optionalExpensesItem.length; i++) {
+
+    optionalExpensesItem[i].addEventListener('input', function() {
+        if( optionalExpensesItem[i].value.trim() != '' ){
+
+            optionalExpensesBtn.removeAttribute('disabled');
+        }
+    });
+}
 
 function outputOfObject () {
     for (let key in appData){
