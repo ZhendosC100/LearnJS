@@ -135,17 +135,9 @@ function budget(){
         }
 }
 
-sumValue.addEventListener('input', function() {
+sumValue.addEventListener('input', budget);
 
-    budget();
-   
-});
-
-percentValue.addEventListener('input', function() {
-
-    budget();
-   
-});
+percentValue.addEventListener('input', budget);
 
 let appData = {
     budget: money,
