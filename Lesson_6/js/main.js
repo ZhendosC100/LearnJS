@@ -64,11 +64,8 @@ expensesBtn.addEventListener('click', function() {
 optionalExpensesBtn.addEventListener('click', function() {
     for(let i = 0; i < optionalExpensesItem.length; i++){
         let opt = optionalExpensesItem[i].value;
-     if( (typeof(opt))=== 'string' && opt != null && opt != '' ){
+    
         appData.optionalExpenses[i] = opt;
-    } else {
-        alert("Введите корректные данные!!!");
-        }
         optionalexpensesValue.textContent += appData.optionalExpenses[i] + ' ';
     }
 });
@@ -125,30 +122,29 @@ checkSavings.addEventListener('click', function() {
     }
 });
 
-sumValue.addEventListener('input', function() {
+function budget(){
     if (appData.savings == true) {
-    let sum = +sumValue.value,
-        percent = +percentValue.value;
-
-        appData.monthIncome = sum/100/12*percent;
-        appData.yearIncome = sum/100*percent;
+        let sum = +sumValue.value,
+            percent = +percentValue.value;
     
-    monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
-    yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
-    }
+            appData.monthIncome = sum/100/12*percent;
+            appData.yearIncome = sum/100*percent;
+        
+        monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
+        yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
+        }
+}
+
+sumValue.addEventListener('input', function() {
+
+    budget();
+   
 });
 
 percentValue.addEventListener('input', function() {
-    if (appData.savings == true) {
-    let sum = +sumValue.value,
-        percent = +percentValue.value;
 
-        appData.monthIncome = sum/100/12*percent;
-        appData.yearIncome = sum/100*percent;
-    
-    monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
-    yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
-    }
+    budget();
+   
 });
 
 let appData = {
