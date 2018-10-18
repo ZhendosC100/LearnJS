@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', function(){
         
     //Таймер
 
-    let deadLine = '2018-10-21';
+    let deadLine = '2018-10-22';
 
     function getTimeRemaining(endtime) {
         let t = Date.parse(endtime) - Date.parse(new Date()), //.parse превращает любую дату в мс  и используем для остановки таймера как только t<=0 таймер останавливатеся 
@@ -73,14 +73,17 @@ window.addEventListener('DOMContentLoaded', function(){
         function updateClock() {
             let tm = getTimeRemaining(endtime);
 
-            hours.textContent = tm.hours;
-            minutes.textContent = tm.minutes;
-            seconds.textContent = tm.seconds;
+            hours.textContent = ("0" + tm.hours).slice(-2);
+            minutes.textContent = ("0" + tm.minutes).slice(-2);
+            seconds.textContent = ("0" + tm.seconds).slice(-2);
 
           //остановка таймера
           
-          if (tm.total <= 0) {
+          if (tm.total <= 0  ) {
               clearInterval(timeInterval);
+              document.querySelector('.hours').innerHTML = "00";
+              document.querySelector('.minutes').innerHTML = "00";
+              document.querySelector('.seconds').innerHTML = "00";
           }
         }
     }
