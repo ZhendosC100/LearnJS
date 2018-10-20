@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     //Modal
 
-    let more = document.querySelector('.more'),
+    /*let more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close');
 
@@ -112,7 +112,43 @@ window.addEventListener('DOMContentLoaded', function(){
 
     descriptionBtn.addEventListener('click', function(){
         overlay.style.display = 'block';
+    });*/
+
+    let body = document.querySelector('body'),
+        more = document.querySelector('.more'),
+        close = document.querySelector('.popup-close'),
+        overlay = document.querySelector('.overlay');
+
+    function modalDisplay(){
+        overlay.style.display = 'block';
+        more.classList.add('more-splash'); //добавляем заранее прописанную в CSS анимацию
+        document.body.style.overlay = 'hidden'; //для того, чтобы страница не прокручивалась при открытом модальном окне
+
+    }
+
+    function modalClose(){
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overlay = '';// отменяем заморозку прокрутки
+    }
+
+    body.addEventListener('click', (e) => {
+        let target = e.target;
+
+        if(target.classList.contains('description-btn') || target.classList.contains('more')){
+            modalDisplay();             //в данном условии прописали появление модального окна от нажатия либо на любой <div class="description-btn">
+        }                               // либо на <button class="more"></button>
+
+        if(target.classList.contains('popup-close')){
+            modalClose();
+        }
     });
 
+    /*close.addEventListener('click', function(){
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overlay = '';// отменяем заморозку прокрутки
+    });*/
 
 });
+
