@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded', () => {
 
     'use strict';
     let tab = document.querySelectorAll('.info-header-tab'),
@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', function(){
         console.log(tabContent);
         
     //функция скрывающая табы
-    function hideTabContent(a) {
+    const hideTabContent = (a) => {
         for( let i = a; i < tabContent.length; i++){
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', function(){
     hideTabContent(1);   
         
         //функция показывающая tabContent
-        function showTabContent(b) {
+        const showTabContent = (b) => {
             for( let i = b; i < tabContent.length; i++){
                 if (tabContent[b].classList.contains('hide')){
                     tabContent[b].classList.remove('hide');
@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', function(){
             }
 
             //назначение обработчика событий при клике на каждый из табов
-            info.addEventListener('click', function(event){
+            info.addEventListener('click', (event) => {
                 let target = event.target;                                      //делегирование события
                 if (target && target.classList.contains('info-header-tab')){    //делегирование события
                     for(let i = 0; i < tab.length; i++){
@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
     let deadLine = '2018-10-22';
 
-    function getTimeRemaining(endtime) {
+    const getTimeRemaining = (endtime) => {
         let t = Date.parse(endtime) - Date.parse(new Date()), //.parse превращает любую дату в мс  и используем для остановки таймера как только t<=0 таймер останавливатеся 
             seconds = Math.floor((t/1000) % 60), //Math.floor() для округления, (t/1000)%60 берем остаток секунд от минуты
             minutes = Math.floor((t/1000/60) % 60),
@@ -63,19 +63,19 @@ window.addEventListener('DOMContentLoaded', function(){
             };
     }
 
-    function setClock(id /*id элемента с которым будет работать*/, endtime/*переменная времени остановки*/){ //функция которая делает верстку таймера динамичной, подставляет  все рассчитываемые значения в верстку
+    const setClock = (id /*id элемента с которым будет работать*/, endtime/*переменная времени остановки*/) => { //функция которая делает верстку таймера динамичной, подставляет  все рассчитываемые значения в верстку
         let timer = document.getElementById(id),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
-            seconds = timer.querySelector('.seconds'),
-            timeInterval = setInterval(updateClock, 1000);
+            seconds = timer.querySelector('.seconds');
+            
 
-        function updateClock() {
+        const updateClock = () => {
             let tm = getTimeRemaining(endtime);
 
             hours.textContent = ("0" + tm.hours).slice(-2);
             minutes.textContent = ("0" + tm.minutes).slice(-2);
-            seconds.textContent = ("0" + tm.seconds).slice(-2);
+            seconds.textContent = ("0" + tm.seconds).slice(-2); // если поменять "0" + tm.seconds на `0 ${tm.seconds}` , таймер ломается
 
           //остановка таймера
           
@@ -86,6 +86,7 @@ window.addEventListener('DOMContentLoaded', function(){
               document.querySelector('.seconds').innerHTML = "00";
           }
         }
+        let timeInterval = setInterval(updateClock, 1000);
     }
 
     setClock('timer', deadLine); // в функции указан id элемента ('timer') и переменная  deadLine (в нее задано время/дата остановки)
@@ -119,14 +120,14 @@ window.addEventListener('DOMContentLoaded', function(){
         close = document.querySelector('.popup-close'),
         overlay = document.querySelector('.overlay');
 
-    function modalDisplay(){
+    const modalDisplay = () => {
         overlay.style.display = 'block';
         more.classList.add('more-splash'); //добавляем заранее прописанную в CSS анимацию
         document.body.style.overlay = 'hidden'; //для того, чтобы страница не прокручивалась при открытом модальном окне
 
     }
 
-    function modalClose(){
+    const modalClose = () => {
         overlay.style.display = 'none';
         more.classList.remove('more-splash');
         document.body.style.overlay = '';// отменяем заморозку прокрутки
