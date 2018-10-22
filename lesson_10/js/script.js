@@ -4,10 +4,6 @@ window.addEventListener('DOMContentLoaded', () => {
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
-
-        console.log(tab);
-        console.log(info);
-        console.log(tabContent);
         
     //функция скрывающая табы
     const hideTabContent = (a) => {
@@ -15,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
         }
-    }
+    };
     hideTabContent(1);   
         
         //функция показывающая tabContent
@@ -27,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
                 
                 }
-            }
+            };
 
             //назначение обработчика событий при клике на каждый из табов
             info.addEventListener('click', (event) => {
@@ -61,7 +57,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 'minutes': minutes,
                 'seconds' : seconds
             };
-    }
+    };
 
     const setClock = (id /*id элемента с которым будет работать*/, endtime/*переменная времени остановки*/) => { //функция которая делает верстку таймера динамичной, подставляет  все рассчитываемые значения в верстку
         let timer = document.getElementById(id),
@@ -73,9 +69,9 @@ window.addEventListener('DOMContentLoaded', () => {
         const updateClock = () => {
             let tm = getTimeRemaining(endtime);
 
-            hours.textContent = ("0" + tm.hours).slice(-2);
-            minutes.textContent = ("0" + tm.minutes).slice(-2);
-            seconds.textContent = ("0" + tm.seconds).slice(-2); // если поменять "0" + tm.seconds на `0 ${tm.seconds}` , таймер ломается
+            hours.textContent = (`0${tm.hours}`).slice(-2);
+            minutes.textContent = (`0${tm.minutes}`).slice(-2);
+            seconds.textContent = (`0${tm.seconds}`).slice(-2); // если поменять "0" + tm.seconds на `0 ${tm.seconds}` , таймер ломается
 
           //остановка таймера
           
@@ -85,35 +81,14 @@ window.addEventListener('DOMContentLoaded', () => {
               document.querySelector('.minutes').innerHTML = "00";
               document.querySelector('.seconds').innerHTML = "00";
           }
-        }
+        ;}
         let timeInterval = setInterval(updateClock, 1000);
-    }
+    };
 
     setClock('timer', deadLine); // в функции указан id элемента ('timer') и переменная  deadLine (в нее задано время/дата остановки)
 
     //Modal
 
-    /*let more = document.querySelector('.more'),
-        overlay = document.querySelector('.overlay'),
-        close = document.querySelector('.popup-close');
-
-    more.addEventListener('click', function() {
-        overlay.style.display = 'block';
-        this.classList.add('more-splash'); //добавляем заранее прописанную в CSS анимацию
-        document.body.style.overlay = 'hidden'; //для того, чтобы страница не прокручивалась при открытом модальном окне
-    });
-
-    close.addEventListener('click', function(){
-        overlay.style.display = 'none';
-        more.classList.remove('more-splash');
-        document.body.style.overlay = '';// отменяем заморозку прокрутки
-    });
-
-    let descriptionBtn = document.querySelector('.description-btn');
-
-    descriptionBtn.addEventListener('click', function(){
-        overlay.style.display = 'block';
-    });*/
 
     let body = document.querySelector('body'),
         more = document.querySelector('.more'),
@@ -125,13 +100,13 @@ window.addEventListener('DOMContentLoaded', () => {
         more.classList.add('more-splash'); //добавляем заранее прописанную в CSS анимацию
         document.body.style.overlay = 'hidden'; //для того, чтобы страница не прокручивалась при открытом модальном окне
 
-    }
+    };
 
     const modalClose = () => {
         overlay.style.display = 'none';
         more.classList.remove('more-splash');
         document.body.style.overlay = '';// отменяем заморозку прокрутки
-    }
+    };
 
     body.addEventListener('click', (e) => {
         let target = e.target;
@@ -144,12 +119,6 @@ window.addEventListener('DOMContentLoaded', () => {
             modalClose();
         }
     });
-
-    /*close.addEventListener('click', function(){
-        overlay.style.display = 'none';
-        more.classList.remove('more-splash');
-        document.body.style.overlay = '';// отменяем заморозку прокрутки
-    });*/
 
 });
 
