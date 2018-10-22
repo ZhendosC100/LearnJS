@@ -1,8 +1,7 @@
-
-
-    let btn = document.querySelector('.btn'),
-        div = document.querySelector('#demo'),
+let btn = document.querySelector('.btn'),
+        div = document.querySelector('.demo'),
         go = new Date();
+        //div.style.cssText = `height: 100px; width: 150px; position: relative; background: green; font-size: 30px; text-align: center;`;
 
     const Timer = () => {
         let dt = new Date();
@@ -16,40 +15,53 @@
     
         };
         document.getElementById('demo').innerHTML = `${hello(dt.getHours())} : ${hello(dt.getMinutes())} : ${hello(dt.getSeconds())}`;
+        if( dt.getSeconds() == 00 || dt.getSeconds() == 20 || dt.getSeconds() == 40 ){
+          div.style.cssText = `height: 150px; width: 100px; position: relative; background: red; font-size: 20px; text-align: center;`;
+          animation();
+        } else {
+          div.style.cssText = `height: 100px; width: 150px; position: relative; background: green; font-size: 30px; text-align: center;`;
+        }
         setTimeout("Timer()",1000);
         
      };
-     //Timer();
 
-    
-        const timer = setInterval(() => {
-            // вычислить сколько времени прошло с начала анимации
-             timePassed = Date.now() - go;
-          
-            if (timePassed >= 12000) {
-              clearInterval(timer); // конец через 2 секунды
-              return;
-            }
-          
-            // рисует состояние анимации, соответствующее времени timePassed
-            draw(timePassed);
-          
-          }, 20);
-          
-          // в то время как timePassed идёт от 0 до 2000
-          // left принимает значения от 0 до 400px
-          const draw = (timePassed) => {
-            div.style.left = timePassed / 5 + 'px';
-          };
-    
+     const animation = () => {
+      animate(function(timePassed) {
+        div.style.left = timePassed / 5 + 'px';
+      }, 3000);
+     };
+
      
      
     btn.addEventListener('click', () => {
+        div.style.cssText = `height: 100px; width: 150px; position: relative; background: green; font-size: 30px; text-align: center;`;
         //div.style.cssText = `height: 100px; width: 150px; background: green; font-size: 30px; text-align: center;`;
         Timer();
-        draw(timePassed);
-     });
+        animation();
+});
 
 
 
+  // Рисует функция draw
+  // Продолжительность анимации duration
+  function animate(draw, duration) {
+    let start = performance.now();
 
+    requestAnimationFrame(function animate(time) {
+      // определить, сколько прошло времени с начала анимации
+      let timePassed = time - start;
+
+      console.log(time, start)
+        // возможно небольшое превышение времени, в этом случае зафиксировать конец
+      if (timePassed > duration) timePassed = duration;
+
+      // нарисовать состояние анимации в момент timePassed
+      draw(timePassed);
+
+      // если время анимации не закончилось - запланировать ещё кадр
+      if (timePassed < duration) {
+        requestAnimationFrame(animate);
+      }
+
+    });
+  }
