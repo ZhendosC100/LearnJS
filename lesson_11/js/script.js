@@ -133,6 +133,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         statusMessage.classList.add('status');
 
+        //делаем невозможным ввод других символов, кроме указанных
+        input[0].addEventListener('input', () => {
+            input[0].value = input[0].value.replace(/[^0-9+]/ig, '');
+        });
+
         //Прописываем запрос
 
         form.addEventListener('submit', function(event) {
@@ -159,7 +164,7 @@ window.addEventListener('DOMContentLoaded', () => {
             //let json = JSON.stringify(obj);         //Вариант отправки через JSON
             //request.send(json);                     //Вариант отправки через JSON
             request.send(formData);
-            //выводим сообщение для пользователя
+            //выводим сообщение для пользователя выше созданной функцией
             request.addEventListener('readystatechange', function(){
                 if(request.readyState < 4) {
                     statusMessage.innerHTML = message.loading;
@@ -174,6 +179,45 @@ window.addEventListener('DOMContentLoaded', () => {
             for(let i = 0; i < input.length; i++){
                 input[i].value = '';
             }
+        });
+
+        let subForm = document.getElementById('form'),
+            subInput = subForm.getElementsByTagName('input');
+
+            //делаем невозможным ввод других символов, кроме указанных
+            subInput[1].addEventListener('input', () => {
+                subInput[1].value = subInput[1].value.replace(/[^0-9+]/ig, '');
+            });
+            
+
+
+        subForm.addEventListener('submit', function(event){
+           
+            event.preventDefault();
+            subForm.appendChild(statusMessage);
+
+            let request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
+
+            let subFormData = new FormData(subForm);
+            request.send(subFormData);
+
+            request.addEventListener('readystatechange', function(){
+                if(request.readyState < 4) {
+                    statusMessage.innerHTML = message.loading;
+                } else if(request.readyState === 4 && request.status == 200){
+                    statusMessage.innerHTML = message.success;
+                } else{
+                    statusMessage.innerHTML = message.failure;
+                }
+            });
+
+            for(let i = 0; i < subInput.length; i++){
+                subInput[i].value = '';
+            }
+
+            
         });
 
 });
