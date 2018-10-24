@@ -132,10 +132,19 @@ window.addEventListener('DOMContentLoaded', () => {
         let form = document.querySelector('.main-form'),
             input = form.getElementsByTagName('input'),
             statusMessage = document.createElement('div');
-
             statusMessage.classList.add('status');
+         
+            //let validInput = document.getElementsByName('phone');
+            //console.log(validInput);
+
+            
 
         //делаем невозможным ввод других символов, кроме указанных
+                        //const validNum = (i) => {
+                         //for (let i=0; i < input.length; i++){
+                             //input[i].value = input[i].value.replace(/[^0-9+]/ig, '');
+                         //}
+                        //};
         input[0].addEventListener('input', () => {
             input[0].value = input[0].value.replace(/[^0-9+]/ig, '');
         });
@@ -146,6 +155,7 @@ window.addEventListener('DOMContentLoaded', () => {
             elem.addEventListener('submit', function(event) {
                 event.preventDefault();
                 elem.appendChild(statusMessage);
+                
                 let formData = new FormData(elem);
     
             function postData(data){
@@ -156,17 +166,16 @@ window.addEventListener('DOMContentLoaded', () => {
                     request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');        
         
                         
-                    request.readystatechange = function(){
+                    request.onreadystatechange = function(){
                         if(request.readyState < 4) {
-                            resolve()
-                        } else if(request.readyState === 4){
-                            if (request.readyState ==200 && request.status < 300){
-                                resolve()
-                            } else{
-                               reject()
-                            }
+                            resolve();
+                        } else if(request.readyState === 4 && request.readyState ==200){
+                                resolve();
+                        } else{
+                               reject();
+                         
                         }
-                    }
+                    };
                                             
         
                         request.send(data);
@@ -192,8 +201,18 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         }
         sendForm(form);
+
+        let subForm = document.getElementById('form'),
+            subInput = subForm.getElementsByTagName('input');
+
+            //делаем невозможным ввод других символов, кроме указанных
+            subInput[1].addEventListener('input', () => {
+                subInput[1].value = subInput[1].value.replace(/[^0-9+]/ig, '');
+            });
+
+            sendForm(subForm);
   
-       
+});  
 
 /*        let subForm = document.getElementById('form'),
             subInput = subForm.getElementsByTagName('input');
@@ -357,5 +376,5 @@ window.addEventListener('DOMContentLoaded', () => {
             
         });*/
 
-});
+
 
