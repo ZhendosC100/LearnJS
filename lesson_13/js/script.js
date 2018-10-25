@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', () => {
               document.querySelector('.minutes').innerHTML = "00";
               document.querySelector('.seconds').innerHTML = "00";
           }
-        ;}
+        };
         let timeInterval = setInterval(updateClock, 1000);
     };
 
@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let body = document.querySelector('body'),
         more = document.querySelector('.more'),
-        close = document.querySelector('.popup-close'),
+        //close = document.querySelector('.popup-close'),
         overlay = document.querySelector('.overlay');
 
     const modalDisplay = () => {
@@ -213,176 +213,118 @@ window.addEventListener('DOMContentLoaded', () => {
             sendForm(subForm);
 
             //Slider
-            let sliderIndex = 1,
+            let slideIndex = 1, //параметр текущего слайда
                 slides = document.querySelectorAll('.slider-item'),
                 prev = document.querySelector('.prev'),
                 next = document.querySelector('.next'),
                 dotsWrap = document.querySelector('.slider-dots'),
                 dots = document.querySelectorAll('.dot');
+                
+            showSlides(slideIndex);
+                //функция скрывающая слайды и показывающая нужный слайд
+            function showSlides(n) {
+                if (n > slides.length){
+                    slideIndex = 1;
+                }
+                if(n < 1) {
+                    slideIndex = slides.lenght;
+                }
+
+                slides.forEach((item) => item.style.display = 'none');
+                //аналог функции показанной выше
+                //for(let i=0; i<slides.lenght; i++){
+                    //slides[1].style.display = 'none';
+                //}
+                    dots.forEach((item) => item.classList.remove('dot-active')); //делает точки не активными (обычного цвета)
+
+                    slides[slideIndex - 1].style.display = 'block'; //показываем нужный слайд при загрузке (сейчас 1-1=0) т е самый первый
+                    dots[slideIndex - 1].classList.add('dot-active'); //показываем точки
+                }
+            //функция увеличивающая slideIndex
+
+            function plusSlides(n){
+                showSlides(slideIndex += n);
+            }
+
+            //ф-ия определяющая текущий слайд и его устанавливает
+            function currentSlide(n){
+                showSlides(slideIndex = n);
+            }
+
+            prev.addEventListener('click', function(){
+                plusSlides(-1);
+            });
+
+            next.addEventListener('click', function(){
+                plusSlides(1);
+            });
+
+            //активируем точки на нажатие
+          dotsWrap.addEventListener('click', function(event){
+              for (let i = 0; i < dots.length + 1; i++) {
+                  if (event.target.classList.contains('dot') && event.target == dots[i-1]){
+                      currentSlide(i);
+                  }
+              }
+          });
+           
+        //calculator
+        
+        let persons = document.querySelectorAll('.counter-block-input')[0],
+            restDays = document.querySelectorAll('.counter-block-input')[1],
+            place = document.getElementById('select'),
+            totalValue = document.getElementById('total'),
+            price = document.getElementById('price'),
+            personSum = 0,
+            daysSum = 0,
+            total = 0;
+
+            totalValue.innerHTML = 0;
+
+            price.addEventListener('input', function(event){  //запрет ввода лишних символов, кроме цифр
+                let target = event.target;
+                    
+                if(target.classList.contains('counter-block-input')){
+                    persons.value = persons.value.replace(/[^0-9]/ig, '');
+                    restDays.value = restDays.value.replace(/[^0-9]/ig, '');
+                }
+            });
+              
+
+            persons.addEventListener('change', function(){
+                
+                personSum = +this.value;
+                total = (daysSum + personSum)*4000;
+
+                if(restDays.value == '' || persons.value == '') {
+                    totalValue.innerHTML = 0;
+                } else {
+                    totalValue.innerHTML = total;
+                }
+            });
+
+            restDays.addEventListener('change', function(){
+                daysSum = +this.value;
+                total = (daysSum + personSum)*4000;
+
+                if(persons.value == '' || restDays.value == '') {
+                    totalValue.innerHTML = 0;
+                } else {
+                    totalValue.innerHTML = total;
+                }
+            });
+
+            
+            place.addEventListener('change', function(){
+                if(restDays.value == '' ){
+                    totalValue.innerHTML = 0;
+                } else{
+                    let a = total;
+                    totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+                }
+            });           
   
 });  
-
-/*        let subForm = document.getElementById('form'),
-            subInput = subForm.getElementsByTagName('input');
-
-            //делаем невозможным ввод других символов, кроме указанных
-            subInput[1].addEventListener('input', () => {
-                subInput[1].value = subInput[1].value.replace(/[^0-9+]/ig, '');
-            });
-            
-
-
-        subForm.addEventListener('submit', function(event){
-           
-            event.preventDefault();
-            subForm.appendChild(statusMessage);
-
-            function postDataSub(){
-                return new subPromise(function(resolve, reject){
-                    let request = new XMLHttpRequest();
-                    request.open('POST', 'server.php');
-                    request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
-
-                    let subFormData = new FormData(subForm);
-            
-
-                        request.addEventListener('readystatechange', function(){
-
-                            if(request.readyState < 4) {
-                                resolve()
-                            } else if(request.readyState === 4 && request.status == 200){
-                                resolve()
-                            } else{
-                                reject()
-                            }
-
-                            request.send(subFormData);
-
-                        });
-                })
-            }
-
-            
-
-            function subInputClear(){
-                for(let i = 0; i < subInput.length; i++){
-                    subInput[i].value = '';
-                }
-            }
-            
-            postDataSub(subFormData)
-                                    .then(() => statusMessage.innerHTML = message.loading)
-                                    .then(() => statusMessage.innerHTML = message.success)
-                                    .catch(() => statusMessage.innerHTML = message.failure)
-                                    .then(subInputClear);
-            
-        });
-
-
-
-
-
-
-
-    //Form
-    let message = {
-        loading: 'Загрузка...',
-        success: 'Спасибо! Скоро мы с Вами свяжемся',
-        failure: 'Что-то пошло не так...'
-    };
-
-    let form = document.querySelector('.main-form'),
-        input = form.getElementsByTagName('input'),
-        statusMessage = document.createElement('div');
-
-        statusMessage.classList.add('status');
-
-        //делаем невозможным ввод других символов, кроме указанных
-        input[0].addEventListener('input', () => {
-            input[0].value = input[0].value.replace(/[^0-9+]/ig, '');
-        });
-
-        //Прописываем запрос
-
-        form.addEventListener('submit', function(event) {
-            
-            //отменим стандартное поведение браузера (тут при нажатии на кнопку обновляется страница )
-            event.preventDefault();
-
-            //
-            form.appendChild(statusMessage);
-
-            //создаем сам запрос чтобы отправить данные на сервер
-            let request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-            request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
-
-            //request.setRequestHeader ('Content-type', 'application/json; charset=utf-8');//Вариант отправки через JSON
-
-            let formData = new FormData(form);
-
-            //let obj = {};                            //Вариант отправки через JSON
-            //formData.forEach(function(value, key) {  //Вариант отправки через JSON
-            //    obj[key] = value;                   //Вариант отправки через JSON
-            //});
-            //let json = JSON.stringify(obj);         //Вариант отправки через JSON
-            //request.send(json);                     //Вариант отправки через JSON
-            request.send(formData);
-            //выводим сообщение для пользователя выше созданной функцией
-            request.addEventListener('readystatechange', function(){
-                if(request.readyState < 4) {
-                    statusMessage.innerHTML = message.loading;
-                } else if(request.readyState === 4 && request.status == 200){
-                    statusMessage.innerHTML = message.success;
-                } else{
-                    statusMessage.innerHTML = message.failure;
-                }
-            });
-            //обнуляем все input
-
-            for(let i = 0; i < input.length; i++){
-                input[i].value = '';
-            }
-        });
-
-        let subForm = document.getElementById('form'),
-            subInput = subForm.getElementsByTagName('input');
-
-            //делаем невозможным ввод других символов, кроме указанных
-            subInput[1].addEventListener('input', () => {
-                subInput[1].value = subInput[1].value.replace(/[^0-9+]/ig, '');
-            });
-            
-
-
-        subForm.addEventListener('submit', function(event){
-           
-            event.preventDefault();
-            subForm.appendChild(statusMessage);
-
-            let request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-            request.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
-
-            let subFormData = new FormData(subForm);
-            request.send(subFormData);
-
-            request.addEventListener('readystatechange', function(){
-                if(request.readyState < 4) {
-                    statusMessage.innerHTML = message.loading;
-                } else if(request.readyState === 4 && request.status == 200){
-                    statusMessage.innerHTML = message.success;
-                } else{
-                    statusMessage.innerHTML = message.failure;
-                }
-            });
-
-            for(let i = 0; i < subInput.length; i++){
-                subInput[i].value = '';
-            }
-
-            
-        });*/
-
-
+//let omg = 10;
+            //console.log(omg);
 
