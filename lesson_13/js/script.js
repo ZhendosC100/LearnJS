@@ -227,7 +227,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     slideIndex = 1;
                 }
                 if(n < 1) {
-                    slideIndex = slides.lenght;
+                    slideIndex = slides.length;
                 }
 
                 slides.forEach((item) => item.style.display = 'none');
@@ -236,12 +236,12 @@ window.addEventListener('DOMContentLoaded', () => {
                     //slides[1].style.display = 'none';
                 //}
                     dots.forEach((item) => item.classList.remove('dot-active')); //делает точки не активными (обычного цвета)
-
-                    slides[slideIndex - 1].style.display = 'block'; //показываем нужный слайд при загрузке (сейчас 1-1=0) т е самый первый
-                    dots[slideIndex - 1].classList.add('dot-active'); //показываем точки
-                }
+                
+                    slides[slideIndex -1].style.display = 'block'; //показываем нужный слайд при загрузке (сейчас 1-1=0) т е самый первый
+                    dots[slideIndex -1].classList.add('dot-active'); //показываем точки
+                } 
             //функция увеличивающая slideIndex
-
+           
             function plusSlides(n){
                 showSlides(slideIndex += n);
             }
@@ -289,14 +289,14 @@ window.addEventListener('DOMContentLoaded', () => {
                     restDays.value = restDays.value.replace(/[^0-9]/ig, '');
                 }
             });
-              
+ 
 
             persons.addEventListener('change', function(){
                 
                 personSum = +this.value;
                 total = (daysSum + personSum)*4000;
 
-                if(restDays.value == '' || persons.value == '') {
+                if(restDays.value == '' || persons.value == '' || persons.value == 0 || restDays.value == 0 ) {
                     totalValue.innerHTML = 0;
                 } else {
                     totalValue.innerHTML = total;
@@ -307,22 +307,24 @@ window.addEventListener('DOMContentLoaded', () => {
                 daysSum = +this.value;
                 total = (daysSum + personSum)*4000;
 
-                if(persons.value == '' || restDays.value == '') {
+                if(restDays.value == '' || persons.value == '' || persons.value == 0 || restDays.value == 0) {
                     totalValue.innerHTML = 0;
                 } else {
                     totalValue.innerHTML = total;
                 }
             });
 
-            
             place.addEventListener('change', function(){
-                if(restDays.value == '' ){
+
+                if(restDays.value == '' || persons.value == '' ){
                     totalValue.innerHTML = 0;
                 } else{
                     let a = total;
-                    totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+                        totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+                   
                 }
-            });           
+            });  
+                       
   
 });  
 //let omg = 10;
