@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 
-    $('div.col-sm-7 li:eq(1), .main_btna, .main_btn').on('click', function(){
+    $('[href="#sheldure"], .main_btna, .main_btn').on('click', function(){
         console.log('Hej');
 
         $('.overlay').animate(
