@@ -1,4 +1,38 @@
 export default function form(){
+    //modal
+let body = document.querySelector('body'),
+    more = document.querySelector('.more'),
+    overlay = document.querySelector('.overlay'),
+    statusMessage = document.createElement('div');
+    statusMessage.classList.add('status');
+
+const modalDisplay = () => {
+    overlay.style.display = 'block';
+    more.classList.add('more-splash'); //добавляем заранее прописанную в CSS анимацию
+    document.body.style.overlay = 'hidden'; //для того, чтобы страница не прокручивалась при открытом модальном окне
+
+};
+
+const modalClose = () => {
+    overlay.style.display = 'none';
+    more.classList.remove('more-splash');
+    document.body.style.overlay = ''; // отменяем заморозку прокрутки
+    statusMessage.innerHTML = "";
+};
+
+body.addEventListener('click', (e) => {
+    let target = e.target;
+
+    if (target.classList.contains('description-btn') || target.classList.contains('more')) {
+        modalDisplay(); //в данном условии прописали появление модального окна от нажатия либо на любой <div class="description-btn">
+    } // либо на <button class="more"></button>
+
+    if (target.classList.contains('popup-close')) {
+        modalClose();
+    }
+});
+
+    //form
     let message = {
         loading: 'Загрузка...',
         success: 'Спасибо! Скоро мы с Вами свяжемся',
@@ -6,9 +40,9 @@ export default function form(){
     };
         
     let form = document.querySelector('.main-form'),
-        input = form.getElementsByTagName('input'),
-       statusMessage = document.createElement('div');
-       statusMessage.classList.add('status');
+        input = form.getElementsByTagName('input');
+       //statusMessage = document.createElement('div');
+       //statusMessage.classList.add('status');
        
     
     //делаем невозможным ввод других символов, кроме указанных
@@ -63,6 +97,7 @@ export default function form(){
         });
     }
     sendForm(form);
+
     
     let subForm = document.getElementById('form'),
         subInput = subForm.getElementsByTagName('input');
@@ -74,10 +109,6 @@ export default function form(){
     
     sendForm(subForm);
 
-    function closeToClear() {
-        statusMessage.innerHTML = "";
-    }
     
 }
-
 //module.exports = form;
