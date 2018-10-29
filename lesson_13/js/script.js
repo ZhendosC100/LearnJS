@@ -93,7 +93,10 @@ window.addEventListener('DOMContentLoaded', () => {
     let body = document.querySelector('body'),
         more = document.querySelector('.more'),
         //close = document.querySelector('.popup-close'),
-        overlay = document.querySelector('.overlay');
+        overlay = document.querySelector('.overlay'),
+        statusMessage = document.createElement('div');
+        statusMessage.classList.add('status');
+
 
     const modalDisplay = () => {
         overlay.style.display = 'block';
@@ -106,6 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
         overlay.style.display = 'none';
         more.classList.remove('more-splash');
         document.body.style.overlay = '';// отменяем заморозку прокрутки
+        statusMessage.innerHTML = "";
     };
 
     body.addEventListener('click', (e) => {
@@ -130,9 +134,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     
         let form = document.querySelector('.main-form'),
-            input = form.getElementsByTagName('input'),
-            statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
+            input = form.getElementsByTagName('input');
+            
             
 
         //делаем невозможным ввод других символов, кроме указанных

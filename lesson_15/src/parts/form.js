@@ -1,4 +1,4 @@
-function form(){
+export default function form(){
     let message = {
         loading: 'Загрузка...',
         success: 'Спасибо! Скоро мы с Вами свяжемся',
@@ -7,8 +7,9 @@ function form(){
         
     let form = document.querySelector('.main-form'),
         input = form.getElementsByTagName('input'),
-        statusMessage = document.createElement('div');
-        statusMessage.classList.add('status');
+       statusMessage = document.createElement('div');
+       statusMessage.classList.add('status');
+       
     
     //делаем невозможным ввод других символов, кроме указанных
     input[0].addEventListener('input', () => {
@@ -72,6 +73,11 @@ function form(){
     });
     
     sendForm(subForm);
+
+    function closeToClear() {
+        statusMessage.innerHTML = "";
+    }
+    
 }
 
-module.exports = form;
+//module.exports = form;

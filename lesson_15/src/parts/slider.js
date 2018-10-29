@@ -1,4 +1,4 @@
-function slider(){
+export default function slider(){
     let slideIndex = 1, //параметр текущего слайда
     slides = document.querySelectorAll('.slider-item'),
     prev = document.querySelector('.prev'),
@@ -43,7 +43,7 @@ next.addEventListener('click', function () {
 
 //активируем точки на нажатие
 dotsWrap.addEventListener('click', function (event) {
-    for (let i = 0; i < dots.length + 1; i++) {
+    for (let i = 1; i < dots.length + 1; i++) {
         if (event.target.classList.contains('dot') && event.target == dots[i - 1]) {
             currentSlide(i);
         }
@@ -51,4 +51,4 @@ dotsWrap.addEventListener('click', function (event) {
 });
 }
 
-module.exports = slider;
+//module.exports = slider;

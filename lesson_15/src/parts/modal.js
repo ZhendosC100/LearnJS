@@ -1,7 +1,9 @@
-function modal(){
-    let body = document.querySelector('body'),
+export default function modal(){
+let body = document.querySelector('body'),
     more = document.querySelector('.more'),
     overlay = document.querySelector('.overlay');
+    //statusMessage = document.createElement('div');
+    //statusMessage.classList.add('status');
 
 const modalDisplay = () => {
     overlay.style.display = 'block';
@@ -14,6 +16,7 @@ const modalClose = () => {
     overlay.style.display = 'none';
     more.classList.remove('more-splash');
     document.body.style.overlay = ''; // отменяем заморозку прокрутки
+    statusMessage.innerHTML = "";
 };
 
 body.addEventListener('click', (e) => {
@@ -29,4 +32,4 @@ body.addEventListener('click', (e) => {
 });
 }
 
-module.exports = modal;
+//module.exports = modal;
