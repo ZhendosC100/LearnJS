@@ -19,7 +19,7 @@ function replace() {
 const totalFunc = () => {
     daysSum = +restDays.value;
     personSum = +persons.value;
-    total = (daysSum + personSum) * 4000;
+    total = (daysSum * personSum) * 4000;
 
     if (restDays.value == '' || persons.value == '' || persons.value == 0 || restDays.value == 0) {
         totalValue.innerHTML = 0;

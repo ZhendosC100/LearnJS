@@ -100,15 +100,22 @@ body.addEventListener('click', (e) => {
 
     
     let subForm = document.getElementById('form'),
-        subInput = subForm.getElementsByTagName('input');
-    
-    //делаем невозможным ввод других символов, кроме указанных
-    subInput[1].addEventListener('input', () => {
-        subInput[1].value = subInput[1].value.replace(/[^0-9+]/ig, '');
-    });
+        subInput = subForm.getElementsByTagName('input'),
+        subInp = subInput[1],
+        sbInp = subInput[0];
+
+        //делаем невозможным ввод других символов, кроме указанных
+        subInp.addEventListener('input', () => {
+            subInp.value = subInp.value.replace(/[^0-9+]/ig, '');
+        });
     
     sendForm(subForm);
 
-    
+    function onInputClear() {
+        statusMessage.innerHTML = "";
+    }
+
+    sbInp.oninput = onInputClear;
+    subInp.oninput = onInputClear;
 }
 //module.exports = form;
