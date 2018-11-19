@@ -144,7 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
             
             //отменим стандартное поведение браузера (тут при нажатии на кнопку обновляется страница )
             event.preventDefault();
-
+            console.log(event.target);
             //
             form.appendChild(statusMessage);
 

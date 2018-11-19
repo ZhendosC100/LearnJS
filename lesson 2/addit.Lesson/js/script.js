@@ -1,11 +1,24 @@
 let week = ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"];
 
-let i = 0;
+
+
+
+
+for (let i = 0; i < week.length; i++){
+    
+    console.log(week[i]);
+}
+
+alert(week[2]);
+
+
+
+/*let i = 0;
 while(i < week.length){
     console.log(week[i]);
-    document.write('<p class="day' + i + '">' + week[i] + '</p>');
+    //document.write('<p class="day' + i + '">' + week[i] + '</p>');
     /*document.getElementById('text').innerHTML += week[i] + '<br/>';
-    document.getElementById('text').style.fontStyle = "italic";*/
+    document.getElementById('text').style.fontStyle = "italic";
     i++;
 };
 
